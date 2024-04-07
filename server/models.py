@@ -61,3 +61,5 @@ class RestaurantPizza(db.Model, SerializerMixin):
     pizza = db.relationship('Pizza', back_populates='restaurant_pizzas')
 
 
+
+

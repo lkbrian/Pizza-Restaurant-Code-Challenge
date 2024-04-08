@@ -33,7 +33,7 @@ def get_restaurants(id):
     elif request.method == 'DELETE':
         db.session.delete(restaurant)
         db.session.commit()
-        response = {'succesfull': True,'message':'Message deleted succesfully'}
+        response = {'succesfull': True,'message':'Restaurant deleted succesfully'}
         return make_response(response,200)
 
 

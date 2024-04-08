@@ -24,6 +24,12 @@ class Restaurant(db.Model, SerializerMixin):
     # Association proxy for accessing pizzas directly
     pizzas = association_proxy('restaurant_pizzas', 'pizza', creator=lambda pizza_obj: RestaurantPizza(pizza=pizza_obj))
 
+    @validates('name')
+    def validate_name(self,key,name):
+        if len(name) > 50:
+            raise ValueError("Name must be less than 50 characters.")
+        return name
+    
     def __repr__(self):
         return f'<Restaurant => {self.name}>'
 
@@ -60,6 +66,11 @@ class RestaurantPizza(db.Model, SerializerMixin):
     # Relationship with Pizza
     pizza = db.relationship('Pizza', back_populates='restaurant_pizzas')
 
-
+    @validates('price')
+    def validate_price(self, key, price):
+        price_float = float(price)
+        if not 1 <= price_float <= 30:
+            raise ValueError('Price must be between 1 and 30')
+        return price_float
 
 
